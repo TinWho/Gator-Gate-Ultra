@@ -58,18 +58,14 @@ Lock a presentation layout block straight to a singular status integer code:
 */
 /**
  * ============================================================================
- * ULTRALIGHT U_GATE (PART 1 OF 5) — BACKEND INTERFACE & GLOBAL MASTER WORKSPACE
+ * ULTRALIGHT U_GATE (PART 1 OF 5 — REVISED) — ADMINISTRATION INTERFACE
  * ============================================================================
- * Handles the expanding shortcode workspace terminals inside individual boards
- * and registers the master fallback dashboard loop within Settings > Forums.
- * This file uses custom frontend form submit interceptors to safely protect
- * your mathematical equations from getting corrupted by WordPress filter hooks.
+ * Injects the customizable control panel textarea layouts into individual 
+ * bbPress subforum administration views right under the main permalink.
  */
 
 // Hook administration interfaces cleanly down standard operational pathways
 add_action( 'edit_form_after_title', 'ultralight_inject_shortcode_field_below_permalink' );
-add_action( 'save_post', 'ultralight_save_unrestricted_shortcode_pipeline', 10, 2 );
-add_action( 'admin_init', 'ultralight_register_global_settings_field' );
 
 /**
  * Injects the dynamic, expanding rule meta box and local telemetry toggle switches
@@ -81,11 +77,9 @@ function ultralight_inject_shortcode_field_below_permalink( $post ) {
 
     $saved = get_post_meta( $post->ID, '_ultralight_custom_forum_shortcode', true );
     $debug_active = get_post_meta( $post->ID, '_ultralight_local_debug_active', true );
-    
-    // VISUAL DECODER: Swap compact placeholder token back to clean "<" character for admin display
-    $saved = str_replace( 'lessthan_', '<', $saved );
 
-    $guide = "MASTER CORE VARIABLE ATTS:\n l=\"guest\" | l=\"role,group,!banned_group\" (Matrix Checks)\n v=\"h|p|r\" (View Mode Fallbacks)\n t=\"10\" | p=\"50\" | k=\"25\" (Shorthand Core DB Keys)\n your_database_table_name=\"<10\" (Pass ANY dynamic user meta field)\n [u_date after=\"\" before=\"\"] (Timeline scheduler)\n\nEXACT LOCK CHECKPOINT RECIPE:\n [u_gate l=\"guest\" v=\"h\"]\n   <p>This text block displays exclusively for unregistered visitors.</p>\n [/u_gate]";
+    // Modified helper placeholder guide showing the alphanumeric keyword structure
+    $guide = "MASTER CORE VARIABLE ATTS:\n l=\"guest\" | l=\"role,group,!banned_group\" (Matrix Checks)\n v=\"h|p|r\" (View Mode Fallbacks)\n t=\"min:10\" | p=\"max:50\" | k=\"min:25\" (Shorthand Core DB Keys)\n your_database_table_name=\"max:10\" (Pass ANY dynamic user meta field)\n [u_date after=\"\" before=\"\"] (Timeline scheduler)\n\nEXACT LOCK CHECKPOINT RECIPE:\n [u_gate l=\"guest\" v=\"h\"]\n   <p>This text block displays exclusively for unregistered visitors.</p>\n [/u_gate]";
     ?>
     <div class="ultralight-wrap" style="margin-top:25px; margin-bottom:20px; background:#fff; padding:16px; border:1px solid #ccd0d4; border-radius:4px; clear:both;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
@@ -111,19 +105,21 @@ function ultralight_inject_shortcode_field_below_permalink( $post ) {
                 a.style.height = exp ? Math.min(a.scrollHeight, 500) + 'px' : '38px';
                 a.style.overflowY = (exp && a.scrollHeight > 500) ? 'scroll' : 'hidden';
             });
-            
-            // Individual Form Meta Box Form Submit Interceptor:
-            // Swaps < to lessthan_ the exact millisecond the user clicks save
-            $a.closest('form').on('submit', function() {
-                var val = $a.val();
-                val = val.replace(/([a-zA-Z0-9_-]+)\s*=\s*(["']|&quot;|&#34;)?\s*</gi, '$1=$2lessthan_');
-                $a.val(val);
-            });
         });
         </script>
     </div>
     <?php
 }
+/**
+ * ============================================================================
+ * ULTRALIGHT U_GATE (PART 2 OF 5 — REVISED) — SAVING ENGINE & GLOBAL OPTIONS
+ * ============================================================================
+ * Handles the secure saving pipelines for individual forum configurations
+ * and integrates the Global Settings Engine blocks inside the native bbPress menu.
+ */
+
+add_action( 'save_post', 'ultralight_save_unrestricted_shortcode_pipeline', 10, 2 );
+add_action( 'admin_init', 'ultralight_register_global_settings_field' );
 
 /**
  * Securely saves individual forum metadata rules and local telemetry check statuses.
@@ -136,7 +132,7 @@ function ultralight_save_unrestricted_shortcode_pipeline( $post_id, $post ) {
     if ( ! current_user_can( 'edit_post', $post_id ) ) return;
     
     if ( isset( $_POST['ultralight_custom_forum_shortcode'] ) ) { 
-        update_post_meta( $post_id, '_ultralight_custom_forum_shortcode', wp_kses_post( $_POST['ultralight_custom_forum_shortcode'] ) ); 
+        update_post_meta( $post_id, '_ultralight_custom_forum_shortcode', sanitize_textarea_field( $_POST['ultralight_custom_forum_shortcode'] ) ); 
     }
     
     $debug_val = isset( $_POST['ultralight_local_debug_active'] ) ? '1' : '0';
@@ -149,7 +145,7 @@ function ultralight_save_unrestricted_shortcode_pipeline( $post_id, $post ) {
 function ultralight_register_global_settings_field() {
     add_settings_section( 'ultralight_global_section', 'Ultralight Global Engine Pipeline', '__return_false', 'bbpress' );
     
-    register_setting( 'bbpress', 'ultralight_global_master_shortcode', 'wp_kses_post' );
+    register_setting( 'bbpress', 'ultralight_global_master_shortcode', 'sanitize_textarea_field' );
     register_setting( 'bbpress', 'ultralight_global_debug_active', 'sanitize_text_field' );
     
     add_settings_field( 'ultralight_global_master_shortcode', 'Global Master Flow Sheet Box', 'ultralight_render_global_settings_textarea', 'bbpress', 'ultralight_global_section' );
@@ -161,10 +157,6 @@ function ultralight_register_global_settings_field() {
 function ultralight_render_global_settings_textarea() {
     $saved = get_option( 'ultralight_global_master_shortcode', '' );
     $global_debug = get_option( 'ultralight_global_debug_active', '0' );
-    
-    // Clean any accidental historical entity tags left behind in older options data
-    $saved = str_replace( array('&lt;', '&#60;'), '<', $saved );
-    $saved = str_replace( 'lessthan_', '<', $saved );
     
     $guide = "GLOBAL MASTER OVERRIDE:\nRules entered here cascade across ALL forums automatically unless overridden inside a specific board canvas.";
     ?>
@@ -184,20 +176,12 @@ function ultralight_render_global_settings_textarea() {
         <script>
         jQuery(document).ready(function($) {
             var b = document.getElementById('ultralight_global_master_shortcode'), $b = $(b), exp = false;
-            $('#text_placeholder').text(''); // Dummy placeholder clear
             $('#ultralight_global_toggle').on('click', function(e) {
                 e.preventDefault(); exp = !exp;
                 $(this).text(exp ? '[- Collapse Workspace]' : '[+ Expand Workspace]');
                 $b.css('background-color', exp ? '#fbfbfc' : '#ffffff');
                 b.style.height = exp ? Math.min(b.scrollHeight, 300) + 'px' : '38px';
                 b.style.overflowY = (exp && b.scrollHeight > 300) ? 'scroll' : 'hidden';
-            });
-
-            // GLOBAL SUBMIT INTERCEPTOR: Prevents Settings API from converting operators to &lt;
-            $b.closest('form').on('submit', function() {
-                var val = $b.val();
-                val = val.replace(/([a-zA-Z0-9_-]+)\s*=\s*(["']|&quot;|&#34;)?\s*</gi, '$1=$2lessthan_');
-                $b.val(val);
             });
         });
         </script>
@@ -206,7 +190,7 @@ function ultralight_render_global_settings_textarea() {
 }
 /**
  * ============================================================================
- * ULTRALIGHT U_GATE (PART 2 OF 5) — THREE-TIER CACHED CASCADING INTERCEPTOR
+ * ULTRALIGHT U_GATE (PART 3 OF 5 — REVISED) — THREE-TIER CACHED INTERCEPTOR
  * ============================================================================
  * Intercepts bbPress templates to automatically inject your active rule sets.
  * It searches down 3 levels (Local Meta -> Parent Tree -> Global Option)
@@ -333,38 +317,39 @@ function ultralight_flush_all_forum_transients_on_global_save() {
 }
 /**
  * ============================================================================
- * ULTRALIGHT U_GATE (PART 3 OF 5) — UNIVERSAL GATEWAY ROUTER
+ * ULTRALIGHT U_GATE (PART 4A OF 5 — REVISED) — SHORTCODE ROUTER & MATH ENGINE
  * ============================================================================
- * Acts as the centralized switchboard traffic router for the [u_gate] shortcode.
- * It manages nesting depth safety checks, flattens profile access groups,
- * and handles native, unauthenticated public visitor ("guest") tracking matrices
- * cleanly without requiring messy double-negative syntax constraints.
+ * Manages nesting depth safety ceilings, flattens user profile access groups, 
+ * parses shortcode attributes, and executes real-time algebraic logic matrix rules
+ * using clean 'min:' and 'max:' alphanumeric string keywords.
  */
+
+add_shortcode( 'u_gate', 'ultralight_universal_brevity_gate' );
 
 /**
  * Universal layout visibility node handling complex group matching and timeline queries.
  */
-function ultralight_universal_brevity_gate($atts, $content = null) {
+function ultralight_universal_brevity_gate( $atts, $content = null ) {
     global $ultralight_gate_depth;
     if ( ! isset( $ultralight_gate_depth ) ) {
         $ultralight_gate_depth = 0;
     }
     
-    // NESTING SHIELD: Terminate execution loop thread safely if complex shortcode tags exceed a 5-tier depth ceiling
+    // NESTING SHIELD: Terminate execution loop thread safely if tags exceed a 5-tier ceiling
     if ( $ultralight_gate_depth > 5 ) {
         return '<!--Max Nesting Depth Exceeded-->';
     }
     
     $ultralight_gate_depth++;
 
-    $r = is_array($atts) ? $atts : [];
+    $r = is_array( $atts ) ? $atts : array();
     $l = $r['l'] ?? ''; 
     $v = $r['v'] ?? 'p'; 
-    unset($r['l'], $r['v']);
+    unset( $r['l'], $r['v'] );
     
     $uid = get_current_user_id(); 
     $ok  = true;
-    $g   = [];
+    $g   = array();
 
     // NATIVE GUEST ASSIGNMENT: Inject virtual "guest" token cleanly for public sessions
     if ( ! is_user_logged_in() ) { 
@@ -373,74 +358,65 @@ function ultralight_universal_brevity_gate($atts, $content = null) {
     } else {
         // Authenticated Session: Pull account roles and dynamic custom meta security groups
         $u = wp_get_current_user(); 
-        $g = array_map('strtolower', (array)$u->roles);
+        $g = array_map( 'strtolower', (array) $u->roles );
         
-        $meta_keys = array('_ultralight_network_groups');
-        if ( class_exists('bbPress') ) { 
+        $meta_keys = array( '_ultralight_network_groups' );
+        if ( class_exists( 'bbPress' ) ) { 
             $meta_keys[] = '_bbp_private_groups'; 
         }
         
-        foreach ($meta_keys as $k) {
-            $m = get_user_meta($uid, $k, true);
+        foreach ( $meta_keys as $k ) {
+            $m = get_user_meta( $uid, $k, true );
             if ( $m ) {
-                $g = array_merge($g, array_map('strtolower', (array)$m));
+                $g = array_merge( $g, array_map( 'strtolower', (array) $m ) );
             }
         }
     }
     
     // Normalize user identity permissions vector matrix array data structures
-    $g = array_unique(array_filter($g));
+    $g = array_unique( array_filter( $g ) );
     
     // Process comma-separated constraint array matching loops
-    if ( ! empty($l) ) {
-        $req = array_map('trim', explode(',', $l)); 
+    if ( ! empty( $l ) ) {
+        $req = array_map( 'trim', explode( ',', $l ) ); 
         $inc = false; 
         $has_inc = false;
         
         foreach ( $req as $t ) {
-            $t = trim($t); 
+            $t = trim( $t ); 
             if ( $t === '' ) continue;
 
-            $ex = (strpos($t, '!') === 0); 
-            $tk = strtolower(sanitize_key($ex ? substr($t, 1) : $t));
+            $ex = ( strpos( $t, '!' ) === 0 ); 
+            $tk = strtolower( sanitize_key( $ex ? substr( $t, 1 ) : $t ) );
             
-            if ($ex) { 
+            if ( $ex ) { 
                 // Hard Lockout: Fail match instantly if explicit exclusion is met
-                if (in_array($tk, $g, true)) { 
+                if ( in_array( $tk, $g, true ) ) { 
                     $ok = false; 
                     break; 
                 } 
             } else { 
                 $has_inc = true; 
-                if (in_array($tk, $g, true)) {
+                if ( in_array( $tk, $g, true ) ) {
                     $inc = true;
                 }
             }
         }
-        if ($ok && $has_inc && !$inc) {
+        if ( $ok && $has_inc && ! $inc ) {
             $ok = false;
         }
     }
     
-    // Handover parameter vectors smoothly down to the Part 4 mathematical loop engine
+    // Handover parameter vectors smoothly down to the mathematical loop engine
     if ( function_exists( 'ultralight_process_unlocked_meta_vectors' ) ) {
-        $out = ultralight_process_unlocked_meta_vectors($ok, $r, $g, $v, $content, $uid);
+        $out = ultralight_process_unlocked_meta_vectors( $ok, $r, $g, $v, $content, $uid );
     } else {
-        $out = $ok ? apply_shortcodes($content) : '';
+        $out = $ok ? apply_shortcodes( $content ) : '';
     }
     
     $ultralight_gate_depth--;
     return $out;
 }
-add_shortcode('u_gate', 'ultralight_universal_brevity_gate');
-/**
- * ============================================================================
- * UULTRALIGHT U_GATE (PART 4A OF 5) — TRANSACTION EVALUATOR ENGINE
- * ============================================================================
- * Handles the shorthand attribute tokens and evaluates algebraic database equations.
- * This segment type-casts user metrics dynamically out of raw core components
- * and handles the safe back-door pass configurations for system administrators.
- */
 
 /**
  * Maps shorthand attribute tokens to their target meta columns cleanly within scope.
@@ -456,10 +432,9 @@ function ultralight_get_part4_mapping_registry() {
 /**
  * Intercepts user parameters and evaluates algebraic and conditional database equations.
  */
-function ultralight_process_unlocked_meta_vectors($ok, $r, $g, $v, $content, $uid) {
+function ultralight_process_unlocked_meta_vectors( $ok, $r, $g, $v, $content, $uid ) {
     if ( ! $ok ) return ultralight_render_gateway_fallback_ui( $v, $content );
     
-    // FAILSAFE ARRAY CONVERSION STEP: Ensure $r is a safe loopable matrix array
     if ( empty( $r ) || ! is_array( $r ) ) {
         $r = array();
     }
@@ -478,30 +453,35 @@ function ultralight_process_unlocked_meta_vectors($ok, $r, $g, $v, $content, $ui
     }
 
     $dyn = true;
+    $act = 0;
+    $tgt = 0;
+    $operator = 'min';
 
     if ( ! empty( $r ) ) {
         if ( ! $uid ) return ultralight_render_gateway_fallback_ui( $v, $content );
         $map = ultralight_get_part4_mapping_registry();
 
         foreach ( $r as $k => $val ) {
-            $val = (string)$val; if ( $val === '' ) continue;
+            $val = trim( (string) $val ); 
+            if ( $val === '' ) continue;
             $k   = strtolower( trim( $k ) ); 
             
-            // OPERATOR TRANSPORT DECODER: Reverse placeholder token back to pure mathematical symbol
-            $val = str_replace( 'lessthan_', '<', $val );
-            $val = trim( $val );
+            $operator = 'min'; // Default floor behavior fallback
             
-            $is_eq = ( strpos( $val, '=' ) === 0 );
-            $lt    = ( ! $is_eq && strpos( $val, '<' ) === 0 );
-            
-            if ( $is_eq || $lt ) { 
-                $tgt = intval( substr( $val, 1 ) ); 
-            } else { 
-                $tgt = intval( $val ); 
+            // Alphanumeric keyword parser node
+            if ( strpos( $val, ':' ) !== false ) {
+                $parts    = explode( ':', $val, 2 );
+                $operator = strtolower( trim( $parts[0] ) );
+                $tgt      = intval( $parts[1] );
+            } elseif ( strpos( $val, '=' ) === 0 ) {
+                $operator = '=';
+                $tgt      = intval( substr( $val, 1 ) );
+            } else {
+                // Backward compatibility: raw numbers default to a minimum requirement floor
+                $tgt = intval( $val );
             }
 
             $is_g = in_array( $k, $g, true );
-            $act  = 0;
 
             if ( ! $is_g ) {
                 // CORE RESOLVER OVERHAUL: Query raw live bbPress activity counters directly from DB hooks
@@ -518,17 +498,20 @@ function ultralight_process_unlocked_meta_vectors($ok, $r, $g, $v, $content, $ui
                     $db_k = $map[$k] ?? $k;
                     $scr  = get_user_meta( $uid, $db_k, true );
                     if ( $scr === '' ) $scr = get_user_meta( $uid, '_' . $db_k, true );
-                    $act  = ($scr === '') ? 0 : intval( $scr );
+                    $act  = ( $scr === '' ) ? 0 : intval( $scr );
                 }
             }
 
+            // Process mathematical logic layers securely without text character conflicts
             if ( $is_g ) {
                 $passed = true;
-            } elseif ( $is_eq ) { 
+            } elseif ( $operator === '=' ) { 
                 $passed = ( $act === $tgt ); 
-            } elseif ( $lt ) { 
-                $passed = ( $act < $tgt ); 
+            } elseif ( $operator === 'max' ) { 
+                // "max:10" sets a ceiling, translating directly to "less than or equal to 10"
+                $passed = ( $act <= $tgt ); 
             } else { 
+                // "min:10" sets a floor, translating directly to "greater than or equal to 10"
                 $passed = ( $act >= $tgt ); 
             }
             
@@ -539,25 +522,23 @@ function ultralight_process_unlocked_meta_vectors($ok, $r, $g, $v, $content, $ui
     // PRODUCTION SECURITY ENFORCEMENT LOOP: If validation checks fail, enforce fallback restriction layouts
     if ( ! $dyn ) {
         if ( $is_admin ) {
-            // Admin Feedback Tracker: Lock the container box down securely, but render trace logs for validation
-            return ultralight_render_gateway_fallback_ui( $v, $content ) . '<div class="admin-only-alert" style="background:#fff3cd; padding:8px; border-left:4px solid #ffc107; font-family:sans-serif; font-size:11px; color:#856404; clear:both; text-align:left; margin-top:5px;">⚠️ Admin Telemetry: Milestone Math Evaluation Failed (act: ' . $act . ' tgt: ' . $tgt . '). Content container locked securely.</div>';
+            return ultralight_render_gateway_fallback_ui( $v, $content ) . '<div class="admin-only-alert" style="background:#fff3cd; padding:8px; border-left:4px solid #ffc107; font-family:sans-serif; font-size:11px; color:#856404; clear:both; text-align:left; margin-top:5px;">⚠️ Admin Telemetry: Milestone Evaluation Failed (act: ' . $act . ' tgt: ' . $tgt . ' via ' . esc_html( $operator ) . '). Content container locked securely.</div>';
         }
         return ultralight_render_gateway_fallback_ui( $v, $content );
     }
 
     if ( $is_admin && ! empty( $r ) ) {
-        return apply_shortcodes( $content ) . '<div class="admin-only-alert" style="background:#d4edda; padding:8px; border-left:4px solid #28a745; font-family:sans-serif; font-size:11px; color:#155724; clear:both; text-align:left; margin-top:5px;">✅ Admin Telemetry: Milestone Math Passed (act: ' . $act . ' tgt: ' . $tgt . '). Content view unlocked.</div>';
+        return apply_shortcodes( $content ) . '<div class="admin-only-alert" style="background:#d4edda; padding:8px; border-left:4px solid #28a745; font-family:sans-serif; font-size:11px; color:#155724; clear:both; text-align:left; margin-top:5px;">✅ Admin Telemetry: Milestone Evaluation Passed (act: ' . $act . ' tgt: ' . $tgt . ' via ' . esc_html( $operator ) . '). Content view unlocked.</div>';
     }
 
     return apply_shortcodes( $content );
 }
 /**
  * ============================================================================
- * ULTRALIGHT U_GATE (PART 4B OF 5) — FALLBACK INTERFACES & TELEMETRY TERMINAL
+ * ULTRALIGHT U_GATE (PART 4B OF 5 — REVISED) — FALLBACKS & TELEMETRY TERMINAL
  * ============================================================================
- * Renders user interface fallbacks on layout validation failure states and
- * processes the live interactive telemetry box on your active frontend layout templates.
- * It sweeps user metadata, email details, and topographical origins on load.
+ * Renders hidden, teaser, or private user interface layout restriction frames
+ * and builds the real-time monospace dashboard logs for active frontend views.
  */
 
 /**
@@ -635,9 +616,6 @@ function ultralight_render_user_profile_debug_stats() {
     $topics  = function_exists( 'bbp_get_user_topic_count_raw' ) ? bbp_get_user_topic_count_raw( $uid ) : 'missing';
     $kudos   = get_user_meta( $uid, '_bbp_received_likes_count', true );
     
-    $raw_replies_meta = get_user_meta( $uid, '_bbp_reply_count', true );
-    $raw_topics_meta  = get_user_meta( $uid, '_bbp_topic_count', true );
-    
     ob_start();
     ?>
     <div style="background:#222; color:#00ff00; padding:20px; font-family:monospace; font-size:13px; border-radius:4px; margin:20px 0; border:2px solid #00ff00; line-height:1.6; clear:both; text-align:left;">
@@ -667,11 +645,11 @@ function ultralight_render_user_profile_debug_stats() {
 }
 /**
  * ============================================================================
- * ULTRALIGHT U_GATE (PART 5A OF 5) — SETTINGS RADAR WORKSPACE INJECTOR
+ * ULTRALIGHT U_GATE (PART 5A OF 5 — REVISED) — SETTINGS RADAR INTERFACE INJECTOR
  * ============================================================================
- * Registers the diagnostics tracking row onto the native bbPress options grid.
- * It processes form field submissions safely without disrupting the master save
- * handlers, preventing data loss inside the core global options rows.
+ * Registers the Topographical dependency tracking row onto the native bbPress 
+ * options layout grid. Processes form field lookup queries safely without 
+ * creating database parameter collision variables.
  */
 
 add_action( 'admin_init', 'ultralight_register_integrated_diagnostics_field' );
@@ -763,11 +741,11 @@ function ultralight_render_integrated_diagnostics_workspace() {
 }
 /**
  * ============================================================================
- * ULTRALIGHT U_GATE (PART 5B OF 5) — CASCADING VISUAL RADAR TREE RENDERER
+ * ULTRALIGHT U_GATE (PART 5B OF 5 — REVISED) — CASCADING VISUAL RADAR TREE RENDERER
  * ============================================================================
- * Computes topographical data pathways across 3 separate tiers in real-time.
- * It tracks parent ancestral links, maps syntax vectors, highlights the current
- * effector ruleset, and displays output metrics using monospace log nodes.
+ * Sweeps the database, traces ancestors, and outputs the live monospace 
+ * dependency matrix logs. Highlights active effector rule definitions 
+ * while visually flag-marking inherited overridden nodes cleanly.
  */
 
 /**
@@ -789,22 +767,20 @@ function ultralight_execute_topographical_radar_trace( $selected_forum_id ) {
         $step = 1;
         $active_override_found = false;
         
-        // Tier 1 Check
+        // Tier 1 Check: Read standard subforum database row directly
         $local_code = get_post_meta( $selected_forum_id, '_ultralight_custom_forum_shortcode', true );
-        $local_code = str_replace( 'lessthan_', '<', $local_code );
         $has_local = ! empty( $local_code );
         if ( $has_local ) { $active_override_found = true; }
         
         ultralight_print_diagnostics_node_row( $step++, 'TIER 1: TARGET SUBFORUM Meta Canvas', $forum_post->post_title, $selected_forum_id, $local_code, $has_local, $has_local );
 
-        // Tier 2 Check
+        // Tier 2 Check: Crawl active directory ancestors structures
         if ( function_exists( 'bbp_get_forum_ancestors' ) ) {
             $ancestors = bbp_get_forum_ancestors( $selected_forum_id );
             if ( ! empty( $ancestors ) ) {
                 foreach ( $ancestors as $parent_id ) {
                     $parent_post = get_post( $parent_id );
                     $parent_code = get_post_meta( $parent_id, '_ultralight_custom_forum_shortcode', true );
-                    $parent_code = str_replace( 'lessthan_', '<', $parent_code );
                     $has_parent = ! empty( $parent_code );
                     
                     $is_active_effector = ( ! $active_override_found && $has_parent );
@@ -817,9 +793,8 @@ function ultralight_execute_topographical_radar_trace( $selected_forum_id ) {
             }
         }
 
-        // Tier 3 Check
+        // Tier 3 Check: Fetch global system options fallback parameters
         $global_code = get_option( 'ultralight_global_master_shortcode', '' );
-        $global_code = str_replace( 'lessthan_', '<', $global_code );
         $has_global = ! empty( $global_code );
         $is_global_active = ( ! $active_override_found );
         
@@ -829,8 +804,8 @@ function ultralight_execute_topographical_radar_trace( $selected_forum_id ) {
         <div style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px; display: flex; align-items: center; justify-content: space-between; flex-wrap:wrap; gap:10px;">
             <strong>🚀 ACTIVE RUNTIME EFFECTOR GATE RULE:</strong>
             <?php
+            // Pull the actual layout value currently executing inside the active memory caches
             $final_rule = get_transient( 'ultralight_forum_cache_' . $selected_forum_id );
-            $final_rule = str_replace( 'lessthan_', '<', $final_rule );
             
             if ( empty( $final_rule ) ) {
                 echo '<span style="color:#ff4444; font-weight:bold;">[🔓 UNPROTECTED ENVIRONMENT LOOP — OPEN BOARD]</span>';
@@ -847,14 +822,14 @@ function ultralight_execute_topographical_radar_trace( $selected_forum_id ) {
  * Monospace data block node row layout formatter.
  */
 function ultralight_print_diagnostics_node_row( $step, $layer_label, $name, $id, $code, $has_contents, $is_active_effector ) {
-    $color = $has_contents ? ($is_active_effector ? '#00ff00' : '#ffc107') : '#555';
-    $status_text = $has_contents ? ($is_active_effector ? '⭐ ACTIVE EFFECTOR' : '⚠️ INHERITED OVERRIDE BLOCKED') : '⚪ EMPTY/PASS THROUGH';
+    $color = $has_contents ? ( $is_active_effector ? '#00ff00' : '#ffc107' ) : '#555';
+    $status_text = $has_contents ? ( $is_active_effector ? '⭐ ACTIVE EFFECTOR' : '⚠️ INHERITED OVERRIDE BLOCKED' ) : '⚪ EMPTY/PASS THROUGH';
     ?>
     <div style="border-left: 2px dashed <?php echo $is_active_effector ? '#00ff00' : '#444'; ?>; padding-left: 20px; margin-bottom: 5px; text-align:left;">
-        <span style="color: #888;">[Node #<?php echo intval($step); ?>]</span> 
+        <span style="color: #888;">[Node #<?php echo intval( $step ); ?>]</span> 
         <strong style="color: #fff;"><?php echo esc_html( $layer_label ); ?>:</strong> 
         <span style="color: #2271b1;"><?php echo esc_html( $name ); ?></span> 
-        <span style="color: #666;">(Ref: <?php echo esc_html($id); ?>)</span>
+        <span style="color: #666;">(Ref: <?php echo esc_html( $id ); ?>)</span>
         
         <div style="background: #151515; padding: 10px; margin-top: 5px; border-radius: 3px; border: 1px solid <?php echo $is_active_effector ? '#333' : '#222'; ?>;">
             <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 5px;">
@@ -868,6 +843,5 @@ function ultralight_print_diagnostics_node_row( $step, $layer_label, $name, $id,
     </div>
     <?php
 }
-
 
 //end
