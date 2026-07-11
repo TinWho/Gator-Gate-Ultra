@@ -39,9 +39,10 @@ THE 8 STRUCTURAL CORE CLASSIFICATIONS MATRIX:
 
 CORE PARAMETER OPERATOR MODIFIERS:
 ----------------------------------------------------------------------------
- - Raw Integer (e.g. p="10")     : Checked as a minimum floor threshold limit (Score >= 10) [INDEX].
- - Less-Than Prefix (e.g. p="<10"): Checked as a maximum ceiling threshold limit (Score < 10) [INDEX].
- - Exact Match Prefix (e.g. your_database_table_name="=10"): Checked as an exact value match (= 10) [INDEX].
+ - Minimum Floor Keyword (e.g. p="min:10") : Checked as a minimum floor threshold limit (Score >= 10).
+ - Maximum Ceiling Keyword (e.g. p="max:10"): Checked as a maximum ceiling threshold limit (Score <= 10).
+ - Exact Match Prefix (e.g. your_database_table_name="=10"): Checked as an exact value match (= 10).
+ - Raw Integer Fallback (e.g. p="10") : Checked as a minimum floor default fallback (Score >= 10).
 
 INLINE STRUCTURAL EXACT MATCHING SPECIFICATION RECIPE:
 ----------------------------------------------------------------------------
@@ -55,6 +56,7 @@ Lock a presentation layout block straight to a singular status integer code:
    </div>
 [/u_gate]
 ============================================================================
+
 */
 /**
  * ============================================================================
