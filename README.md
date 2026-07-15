@@ -131,9 +131,12 @@ Mapped 'k' Value (get_user_meta received likes): 0 (Empty Row)
 Installation & Testing
 
     This project is currently distributed as standalone PHP code snippets.
-    Test all snippets in a sandbox or staging environment first. Exercise caution when installing or removing snippets. Database effects and site behaviour may vary depending on your configuration.
+    Test all snippets in a sandbox or staging environment first. 
+    Exercise caution when installing or removing snippets. 
+    Database effects and site behaviour may vary depending on your configuration.
     Always back up your website and database before installing or modifying snippets.
-    The easiest installation method is to copy and paste the snippets into a WordPress code snippet manager, such as Fluent Snippets.
+    The easiest installation method is to copy and paste the snippets
+    into a WordPress code snippet manager, such as Fluent Snippets.
 
 License
 
