@@ -145,4 +145,5 @@ Licensed under GPL v2 or later.
 AI-generated and AI-assisted code is provided AS IS without warranty. Users are responsible for testing and validating the code before deploying it in production environments.
 
 ☕ Voluntary Support
+
 tinfoilwho.com
