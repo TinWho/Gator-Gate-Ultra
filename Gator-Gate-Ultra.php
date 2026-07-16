@@ -1,6 +1,6 @@
 /**
  * ==========================================================================
- * PROJECT:            U_Gate-Ultralight
+ * PROJECT:            Gator-Gate-Ultra
  * DESCRIPTION:        A high-dexterity, zero-bloat Dynamic Content Gate & 
  *                     Telemetry Routing Engine for high-traffic forum networks.
  * FILE LOCATION:      WordPress/bbPress Child Theme functions.php snippet
