@@ -4,7 +4,7 @@
  * DESCRIPTION:        A high-dexterity, zero-bloat Dynamic Content Gate & 
  *                     Telemetry Routing Engine for high-traffic forum networks.
  * FILE LOCATION:      WordPress/bbPress Child Theme functions.php snippet
- * VERSION:            1.0.0-alpha
+ * VERSION:            0.0.1-alpha
  * AUTHOR:             Tin Who (https://tinfoilwho.com)
  * LICENSE:            GPL-2.0-or-later (https://gnu.org)
  * ==========================================================================
@@ -16,15 +16,16 @@
 
 
 
+/*
 ============================================================================
-U_Gate-Ultralight FOR bbPRESS — CORE SPECIFICATION PRODUCTION BUILD (GPLv2+)
+GATOR GATE ULTRA — CORE SPECIFICATION ALPHA BUILD (GPLv2+)
 ============================================================================
-U_Gate-Ultralight is a high-performance architectural translation layer.
+The GATOR GATE ULTRA is a dynamic architectural translation layer.
 It bridges your backend database with your front-end presentation layer, 
 translating raw values inside the highly indexed `wp_usermeta` table into 
-instant conditional layout tracks and pinpoint location/time constraints.
+instant conditional layout tracks [INDEX, INDEX].
 
-THE 11 STRUCTURAL CORE CLASSIFICATIONS MATRIX:
+THE 10 STRUCTURAL CORE CLASSIFICATIONS MATRIX:
 ----------------------------------------------------------------------------
  1. USER            -> Authenticates core profile login state.
  2. GROUP           -> Tracks clearing arrays and roles ( l="vip, !banned" ).
@@ -36,19 +37,17 @@ THE 11 STRUCTURAL CORE CLASSIFICATIONS MATRIX:
  8. VARIABLE NAMES  -> Pass-through engine: processes ANY user meta row value automatically.
  9. FORUM           -> Fences layout blocks/access straight to single or multiple comma-separated Forum IDs.
  10. TOPIC          -> Fences layout blocks/access straight to single or multiple comma-separated Topic IDs.
- 11. UNTIL          -> Enforces automatic calendar expiration clock constraints (until="YYYY-MM-DD").
 ============================================================================
+
 
 CORE PARAMETER OPERATOR MODIFIERS:
 ----------------------------------------------------------------------------
- - Minimum Floor Keyword (e.g. p="min:10")  : Checked as a minimum floor threshold limit (Score >= 10).
- - Maximum Ceiling Keyword (e.g. p="max:10") : Checked as a maximum ceiling threshold limit (Score <= 10).
- - Exact Match Prefix (e.g. your_db_name="=10") : Checked as an exact value match (= 10).
+ - Minimum Floor Keyword (e.g. p="min:10") : Checked as a minimum floor threshold limit (Score >= 10).
+ - Maximum Ceiling Keyword (e.g. p="max:10"): Checked as a maximum ceiling threshold limit (Score <= 10).
+ - Exact Match Prefix (e.g. your_db_name="=10"): Checked as an exact value match (= 10).
  - Multi-ID String List (e.g. topic="85,92") : Checked via array lookup across single or multiple text list IDs.
- - Time Expiration String (e.g. until="2026-07-01") : Evaluated on page load to natively clear or lock content.
- - Raw Integer Fallback (e.g. p="10")        : Checked as a minimum floor default fallback (Score >= 10).
+ - Raw Integer Fallback (e.g. p="10")       : Checked as a minimum floor default fallback (Score >= 10).
 ----------------------------------------------------------------------------
-
 
 
 INLINE STRUCTURAL EXACT MATCHING SPECIFICATION RECIPE:
@@ -66,21 +65,21 @@ Lock a presentation layout block straight to a singular status integer code:
 */
 /**
  * ============================================================================
- * U_Gate-Ultralight (PART 1 OF 5) — ADMINISTRATION INTERFACE
+ * GATOR GATE ULTRA (PART 1 OF 5) — ADMINISTRATION INTERFACE
  * ============================================================================
  * Injects the customizable control panel textarea layouts into individual 
  * bbPress subforum administration views right under the main permalink.
  */
 
 // Hook administration interfaces cleanly down standard operational pathways
-add_action( 'edit_form_after_title', 'ultralight_inject_shortcode_field_below_permalink' );
+add_action( 'edit_form_after_title', 'ggate_inject_shortcode_field_below_permalink' );
 
 /**
  * Injects the dynamic, expanding rule meta box and local telemetry toggle switches
  * directly under individual subforum permalinks.
  */
-if ( ! function_exists( 'ultralight_inject_shortcode_field_below_permalink' ) ) {
-    function ultralight_inject_shortcode_field_below_permalink( $post ) {
+if ( ! function_exists( 'ggate_inject_shortcode_field_below_permalink' ) ) {
+    function ggate_inject_shortcode_field_below_permalink( $post ) {
         if ( ! class_exists( 'bbPress' ) || ! function_exists( 'bbp_get_forum_post_type' ) ) {
             return;
         }
@@ -88,8 +87,8 @@ if ( ! function_exists( 'ultralight_inject_shortcode_field_below_permalink' ) ) 
             return;
         }
 
-        $saved = get_post_meta( $post->ID, '_ultralight_custom_forum_shortcode', true );
-        $debug_active = get_post_meta( $post->ID, '_ultralight_local_debug_active', true );
+        $saved = get_post_meta( $post->ID, '_ggate_custom_forum_shortcode', true );
+        $debug_active = get_post_meta( $post->ID, '_ggate_local_debug_active', true );
 
         // Clean guide string layout formatting block
         $guide  = "MASTER CORE VARIABLE ATTS:\n";
@@ -105,30 +104,30 @@ if ( ! function_exists( 'ultralight_inject_shortcode_field_below_permalink' ) ) 
 
         // Capture nonce markup field strings natively inside variable buffers
         ob_start();
-        wp_nonce_field( 'ultralight_shortcode_save_action', 'ultralight_shortcode_nonce' );
+        wp_nonce_field( 'ggate_shortcode_save_action', 'ggate_shortcode_nonce' );
         $nonce_field_html = ob_get_clean();
 
         $checked_attr = ( $debug_active === '1' ) ? 'checked="checked"' : '';
 
         // Compile entire visual workspace wrapper completely inside a clean standard text string
-        $html = '<div class="ultralight-wrap" style="margin-top:25px; margin-bottom:20px; background:#fff; padding:16px; border:1px solid #ccd0d4; border-radius:4px; clear:both;">';
+        $html = '<div class="ggate-wrap" style="margin-top:25px; margin-bottom:20px; background:#fff; padding:16px; border:1px solid #ccd0d4; border-radius:4px; clear:both;">';
         $html .= '    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">';
-        $html .= '        <label for="ultralight_custom_forum_shortcode" style="font-weight:600; font-size:14px;">Custom Rule Flow Sheet Box</label>';
-        $html .= '        <a href="#" id="ultralight_toggle_trigger" style="font-size:13px; color:#2271b1; text-decoration:none;">[+ Expand Workspace]</a>';
+        $html .= '        <label for="ggate_custom_forum_shortcode" style="font-weight:600; font-size:14px;">Custom Rule Flow Sheet Box</label>';
+        $html .= '        <a href="#" id="ggate_toggle_trigger" style="font-size:13px; color:#2271b1; text-decoration:none;">[+ Expand Workspace]</a>';
         $html .= '    </div>';
         $html .= $nonce_field_html;
-        $html .= '    <textarea name="ultralight_custom_forum_shortcode" id="ultralight_custom_forum_shortcode" placeholder="' . esc_attr( $guide ) . '" style="width:100%; padding:8px; font-size:13px; font-family:monospace; height:38px; min-height:38px; display:block; box-sizing:border-box; transition:background-color 0.2s ease; margin-bottom:10px;">' . esc_textarea( $saved ) . '</textarea>';
+        $html .= '    <textarea name="ggate_custom_forum_shortcode" id="ggate_custom_forum_shortcode" placeholder="' . esc_attr( $guide ) . '" style="width:100%; padding:8px; font-size:13px; font-family:monospace; height:38px; min-height:38px; display:block; box-sizing:border-box; transition:background-color 0.2s ease; margin-bottom:10px;">' . esc_textarea( $saved ) . '</textarea>';
         $html .= '    <div style="background:#f6f7f7; padding:10px; border:1px solid #dcdcde; border-radius:4px; display:flex; align-items:center; gap:8px;">';
-        $html .= '        <input type="checkbox" name="ultralight_local_debug_active" id="ultralight_local_debug_active" value="1" ' . $checked_attr . '>';
-        $html .= '        <label for="ultralight_local_debug_active" style="font-size:12px; font-weight:600; color:#1d2327; cursor:pointer;">🛠️ Enable Live Data Audit Terminal for this board</label>';
+        $html .= '        <input type="checkbox" name="ggate_local_debug_active" id="ggate_local_debug_active" value="1" ' . $checked_attr . '>';
+        $html .= '        <label for="ggate_local_debug_active" style="font-size:12px; font-weight:600; color:#1d2327; cursor:pointer;">🛠️ Enable Live Data Audit Terminal for this board</label>';
         $html .= '    </div>';
         $html .= '    <script>';
         $html .= '    jQuery(document).ready(function($) {';
-        $html .= '        var a = document.getElementById("ultralight_custom_forum_shortcode");';
+        $html .= '        var a = document.getElementById("ggate_custom_forum_shortcode");';
         $html .= '        if (a) {';
         $html .= '            var $a = $(a);';
         $html .= '            var exp = false;';
-        $html .= '            $("#ultralight_toggle_trigger").on("click", function(e) {';
+        $html .= '            $("#ggate_toggle_trigger").on("click", function(e) {';
         $html .= '                e.preventDefault(); exp = !exp;';
         $html .= '                $(this).text(exp ? "[- Collapse Workspace]" : "[+ Expand Workspace]");';
         $html .= '                $a.css("background-color", exp ? "#fbfbfc" : "#ffffff");';
@@ -146,21 +145,21 @@ if ( ! function_exists( 'ultralight_inject_shortcode_field_below_permalink' ) ) 
 
 /**
  * ============================================================================
- * U_Gate-Ultralight (PART 2 OF 5 — REVISED) — SAVING ENGINE & GLOBAL OPTIONS
+ * GATOR GATE ULTRA (PART 2 OF 5 — REVISED) — SAVING ENGINE & GLOBAL OPTIONS
  * ============================================================================
  * Handles the secure saving pipelines for individual forum configurations
  * and integrates the Global Settings Engine blocks inside the native bbPress menu.
  */
 
-add_action( 'save_post', 'ultralight_save_unrestricted_shortcode_pipeline', 10, 2 );
-add_action( 'admin_init', 'ultralight_register_global_settings_field' );
+add_action( 'save_post', 'ggate_save_unrestricted_shortcode_pipeline', 10, 2 );
+add_action( 'admin_init', 'ggate_register_global_settings_field' );
 
 /**
  * Securely saves individual forum metadata rules and local telemetry check statuses.
  */
-if ( ! function_exists( 'ultralight_save_unrestricted_shortcode_pipeline' ) ) {
-    function ultralight_save_unrestricted_shortcode_pipeline( $post_id, $post ) {
-        if ( ! isset( $_POST['ultralight_shortcode_nonce'] ) || ! wp_verify_nonce( $_POST['ultralight_shortcode_nonce'], 'ultralight_shortcode_save_action' ) ) {
+if ( ! function_exists( 'ggate_save_unrestricted_shortcode_pipeline' ) ) {
+    function ggate_save_unrestricted_shortcode_pipeline( $post_id, $post ) {
+        if ( ! isset( $_POST['ggate_shortcode_nonce'] ) || ! wp_verify_nonce( $_POST['ggate_shortcode_nonce'], 'ggate_shortcode_save_action' ) ) {
             return;
         }
         if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -176,58 +175,58 @@ if ( ! function_exists( 'ultralight_save_unrestricted_shortcode_pipeline' ) ) {
             return;
         }
         
-        if ( isset( $_POST['ultralight_custom_forum_shortcode'] ) ) { 
-            update_post_meta( $post_id, '_ultralight_custom_forum_shortcode', sanitize_textarea_field( $_POST['ultralight_custom_forum_shortcode'] ) ); 
+        if ( isset( $_POST['ggate_custom_forum_shortcode'] ) ) { 
+            update_post_meta( $post_id, '_ggate_custom_forum_shortcode', sanitize_textarea_field( $_POST['ggate_custom_forum_shortcode'] ) ); 
         }
         
-        $debug_val = isset( $_POST['ultralight_local_debug_active'] ) ? '1' : '0';
-        update_post_meta( $post_id, '_ultralight_local_debug_active', $debug_val );
+        $debug_val = isset( $_POST['ggate_local_debug_active'] ) ? '1' : '0';
+        update_post_meta( $post_id, '_ggate_local_debug_active', $debug_val );
     }
 }
 
 /**
  * Registers the global settings field framework inside the main bbPress settings menu.
  */
-if ( ! function_exists( 'ultralight_register_global_settings_field' ) ) {
-    function ultralight_register_global_settings_field() {
-        add_settings_section( 'ultralight_global_section', 'Ultralight Global Engine Pipeline', '__return_false', 'bbpress' );
+if ( ! function_exists( 'ggate_register_global_settings_field' ) ) {
+    function ggate_register_global_settings_field() {
+        add_settings_section( 'ggate_global_section', 'ggate Global Engine Pipeline', '__return_false', 'bbpress' );
         
-        register_setting( 'bbpress', 'ultralight_global_master_shortcode', 'sanitize_textarea_field' );
-        register_setting( 'bbpress', 'ultralight_global_debug_active', 'sanitize_text_field' );
+        register_setting( 'bbpress', 'ggate_global_master_shortcode', 'sanitize_textarea_field' );
+        register_setting( 'bbpress', 'ggate_global_debug_active', 'sanitize_text_field' );
         
-        add_settings_field( 'ultralight_global_master_shortcode', 'Global Master Flow Sheet Box', 'ultralight_render_global_settings_textarea', 'bbpress', 'ultralight_global_section' );
+        add_settings_field( 'ggate_global_master_shortcode', 'Global Master Flow Sheet Box', 'ggate_render_global_settings_textarea', 'bbpress', 'ggate_global_section' );
     }
 }
 
 /**
  * Renders the primary terminal field alongside the global toggle options framework.
  */
-if ( ! function_exists( 'ultralight_render_global_settings_textarea' ) ) {
-    function ultralight_render_global_settings_textarea() {
-        $saved = get_option( 'ultralight_global_master_shortcode', '' );
-        $global_debug = get_option( 'ultralight_global_debug_active', '0' );
+if ( ! function_exists( 'ggate_render_global_settings_textarea' ) ) {
+    function ggate_render_global_settings_textarea() {
+        $saved = get_option( 'ggate_global_master_shortcode', '' );
+        $global_debug = get_option( 'ggate_global_debug_active', '0' );
         
         $guide = "GLOBAL MASTER OVERRIDE:\nRules entered here cascade across ALL forums automatically unless overridden inside a specific board canvas.";
         
         $checked_attr = ( $global_debug === '1' ) ? 'checked="checked"' : '';
 
-        $html = '<div class="ultralight-wrap" style="background:#fff; padding:16px; border:1px solid #ccd0d4; border-radius:4px; max-width:800px;">';
+        $html = '<div class="ggate-wrap" style="background:#fff; padding:16px; border:1px solid #ccd0d4; border-radius:4px; max-width:800px;">';
         $html .= '    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">';
         $html .= '        <span style="font-weight:600; font-size:13px; color:#1d2327;">Global Site-Wide Configuration</span>';
-        $html .= '        <a href="#" id="ultralight_global_toggle" style="font-size:12px; color:#2271b1; text-decoration:none;">[+ Expand Workspace]</a>';
+        $html .= '        <a href="#" id="ggate_global_toggle" style="font-size:12px; color:#2271b1; text-decoration:none;">[+ Expand Workspace]</a>';
         $html .= '    </div>';
-        $html .= '    <textarea name="ultralight_global_master_shortcode" id="ultralight_global_master_shortcode" placeholder="' . esc_attr( $guide ) . '" style="width:100%; padding:8px; font-size:13px; font-family:monospace; height:38px; min-height:38px; display:block; box-sizing:border-box; transition:background-color 0.2s ease; margin-bottom:10px;">' . esc_textarea( $saved ) . '</textarea>';
+        $html .= '    <textarea name="ggate_global_master_shortcode" id="ggate_global_master_shortcode" placeholder="' . esc_attr( $guide ) . '" style="width:100%; padding:8px; font-size:13px; font-family:monospace; height:38px; min-height:38px; display:block; box-sizing:border-box; transition:background-color 0.2s ease; margin-bottom:10px;">' . esc_textarea( $saved ) . '</textarea>';
         $html .= '    <div style="background:#f6f7f7; padding:10px; border:1px solid #dcdcde; border-radius:4px; display:flex; align-items:center; gap:8px;">';
-        $html .= '        <input type="checkbox" name="ultralight_global_debug_active" id="ultralight_global_debug_active" value="1" ' . $checked_attr . '>';
-        $html .= '        <label for="ultralight_global_debug_active" style="font-size:12px; font-weight:600; color:#1d2327; cursor:pointer;">🛠️ Enable Live Data Audit Terminal site-wide (Global Fallback)</label>';
+        $html .= '        <input type="checkbox" name="ggate_global_debug_active" id="ggate_global_debug_active" value="1" ' . $checked_attr . '>';
+        $html .= '        <label for="ggate_global_debug_active" style="font-size:12px; font-weight:600; color:#1d2327; cursor:pointer;">🛠️ Enable Live Data Audit Terminal site-wide (Global Fallback)</label>';
         $html .= '    </div>';
         $html .= '    <' . 'script' . '>';
         $html .= '    jQuery(document).ready(function($) {';
-        $html .= '        var b = document.getElementById("ultralight_global_master_shortcode");';
+        $html .= '        var b = document.getElementById("ggate_global_master_shortcode");';
         $html .= '        if (b) {';
         $html .= '            var $b = $(b);';
         $html .= '            var exp = false;';
-        $html .= '            $("#ultralight_global_toggle").on("click", function(e) {';
+        $html .= '            $("#ggate_global_toggle").on("click", function(e) {';
         $html .= '                e.preventDefault(); exp = !exp;';
         $html .= '                $(this).text(exp ? "[- Collapse Workspace]" : "[+ Expand Workspace]");';
         $html .= '                $b.css("background-color", exp ? "#fbfbfc" : "#ffffff");';
@@ -244,7 +243,7 @@ if ( ! function_exists( 'ultralight_render_global_settings_textarea' ) ) {
 }
 /**
  * ============================================================================
- * U_Gate-Ultralight (PART 3 OF 5 — REVISED) — THREE-TIER CACHED INTERCEPTOR
+ * GATOR GATE ULTRA (PART 3 OF 5 — REVISED) — THREE-TIER CACHED INTERCEPTOR
  * ============================================================================
  * Intercepts bbPress templates to automatically inject your active rule sets.
  * It searches down 3 levels (Local Meta -> Parent Tree -> Global Option)
@@ -252,18 +251,18 @@ if ( ! function_exists( 'ultralight_render_global_settings_textarea' ) ) {
  */
 
 // Hook actions cleanly into BOTH the main board layouts AND individual topic discussion streams
-add_action( 'bbp_template_before_single_forum', 'ultralight_frontend_render_under_title_shortcode' );
-add_action( 'bbp_template_before_single_topic', 'ultralight_frontend_render_under_title_shortcode' );
-add_action( 'bbp_template_before_forums_loop', 'ultralight_frontend_render_under_title_shortcode' );
+add_action( 'bbp_template_before_single_forum', 'ggate_frontend_render_under_title_shortcode' );
+add_action( 'bbp_template_before_single_topic', 'ggate_frontend_render_under_title_shortcode' );
+add_action( 'bbp_template_before_forums_loop', 'ggate_frontend_render_under_title_shortcode' );
 
-add_action( 'save_post', 'ultralight_flush_cascade_transients', 10, 2 );
-add_action( 'update_option_ultralight_global_master_shortcode', 'ultralight_flush_all_forum_transients_on_global_save' );
+add_action( 'save_post', 'ggate_flush_cascade_transients', 10, 2 );
+add_action( 'update_option_ggate_global_master_shortcode', 'ggate_flush_all_forum_transients_on_global_save' );
 
 /**
  * Handles hierarchical traversal logic down 3 levels and automatically handles debugging flags.
  */
-if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
-    function ultralight_frontend_render_under_title_shortcode( $content = '' ) {
+if ( ! function_exists( 'ggate_frontend_render_under_title_shortcode' ) ) {
+    function ggate_frontend_render_under_title_shortcode( $content = '' ) {
         if ( ! class_exists( 'bbPress' ) ) {
             return $content;
         }
@@ -287,7 +286,7 @@ if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
         }
 
         // Pull configurations out of high-scale object transient caching frames
-        $transient_key = 'ultralight_forum_cache_' . ( $is_forum_archive ? 'global_archive' : $current_id );
+        $transient_key = 'ggate_forum_cache_' . ( $is_forum_archive ? 'global_archive' : $current_id );
         $target        = get_transient( $transient_key );
 
         if ( false === $target ) {
@@ -295,14 +294,14 @@ if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
             
             if ( ! $is_forum_archive && $current_id ) {
                 // Tier 1: Pull straight from the active subforum meta canvas
-                $target = get_post_meta( $current_id, '_ultralight_custom_forum_shortcode', true );
+                $target = get_post_meta( $current_id, '_ggate_custom_forum_shortcode', true );
 
                 // Tier 2: Climb parent tree tracking directories
                 if ( empty( $target ) && function_exists( 'bbp_get_forum_ancestors' ) ) {
                     $ancestors = bbp_get_forum_ancestors( $current_id );
                     if ( is_array( $ancestors ) ) {
                         foreach ( $ancestors as $parent_id ) {
-                            $parent_code = get_post_meta( $parent_id, '_ultralight_custom_forum_shortcode', true );
+                            $parent_code = get_post_meta( $parent_id, '_ggate_custom_forum_shortcode', true );
                             if ( ! empty( $parent_code ) ) { 
                                 $target = $parent_code; 
                                 break; 
@@ -314,7 +313,7 @@ if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
 
             // Tier 3: Global fallback rule allocation row mapping
             if ( empty( $target ) ) {
-                $target = get_option( 'ultralight_global_master_shortcode', '' );
+                $target = get_option( 'ggate_global_master_shortcode', '' );
             }
 
             set_transient( $transient_key, $target, 12 * HOUR_IN_SECONDS );
@@ -323,7 +322,7 @@ if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
         // TELEMETRY EVALUATOR MATRIX NODE: Intercept backend database switches and append debug boxes if checked
         $show_debug_console = false;
         if ( ! $is_forum_archive && $current_id ) {
-            $local_toggle = get_post_meta( $current_id, '_ultralight_local_debug_active', true );
+            $local_toggle = get_post_meta( $current_id, '_ggate_local_debug_active', true );
             if ( $local_toggle === '1' ) {
                 $show_debug_console = true;
             }
@@ -331,7 +330,7 @@ if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
         
         // If local board hasn't forced an explicit toggle, check the global backup setting
         if ( ! $show_debug_console ) {
-            $global_toggle = get_option( 'ultralight_global_debug_active', '0' );
+            $global_toggle = get_option( 'ggate_global_debug_active', '0' );
             if ( $global_toggle === '1' ) {
                 $show_debug_console = true;
             }
@@ -339,12 +338,12 @@ if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
 
         // Render the active layouts configuration frame
         if ( ! empty( $target ) ) {
-            echo '<div class="ultralight-forum-container" style="margin-top:20px; margin-bottom:10px; clear:both;">' . apply_shortcodes( $target ) . '</div>';
+            echo '<div class="ggate-forum-container" style="margin-top:20px; margin-bottom:10px; clear:both;">' . apply_shortcodes( $target ) . '</div>';
         }
 
         // If a diagnostic switch checkbox is active on this view, safely force execution of our debug terminal row
-        if ( $show_debug_console && function_exists( 'ultralight_render_user_profile_debug_stats' ) ) {
-            echo ultralight_render_user_profile_debug_stats();
+        if ( $show_debug_console && function_exists( 'ggate_render_user_profile_debug_stats' ) ) {
+            echo ggate_render_user_profile_debug_stats();
         }
 
         return $content;
@@ -354,8 +353,8 @@ if ( ! function_exists( 'ultralight_frontend_render_under_title_shortcode' ) ) {
 /**
  * Instantly evacuates localized transient cache allocations when individual items update.
  */
-if ( ! function_exists( 'ultralight_flush_cascade_transients' ) ) {
-    function ultralight_flush_cascade_transients( $post_id, $post ) {
+if ( ! function_exists( 'ggate_flush_cascade_transients' ) ) {
+    function ggate_flush_cascade_transients( $post_id, $post ) {
         if ( ! class_exists( 'bbPress' ) || ! function_exists( 'bbp_get_forum_post_type' ) ) {
             return;
         }
@@ -364,12 +363,12 @@ if ( ! function_exists( 'ultralight_flush_cascade_transients' ) ) {
         }
         
         if ( $post->post_type === bbp_get_forum_post_type() ) {
-            delete_transient( 'ultralight_forum_cache_' . $post_id );
+            delete_transient( 'ggate_forum_cache_' . $post_id );
             if ( function_exists( 'bbp_get_forum_ancestors' ) ) {
                 $ancestors = bbp_get_forum_ancestors( $post_id );
                 if ( is_array( $ancestors ) ) {
                     foreach ( $ancestors as $parent_id ) {
-                        delete_transient( 'ultralight_forum_cache_' . $parent_id );
+                        delete_transient( 'ggate_forum_cache_' . $parent_id );
                     }
                 }
             }
@@ -377,50 +376,50 @@ if ( ! function_exists( 'ultralight_flush_cascade_transients' ) ) {
         elseif ( function_exists( 'bbp_get_topic_post_type' ) && $post->post_type === bbp_get_topic_post_type() ) {
             $forum_id = get_post_meta( $post_id, '_bbp_forum_id', true );
             if ( $forum_id ) {
-                delete_transient( 'ultralight_forum_cache_' . $forum_id );
+                delete_transient( 'ggate_forum_cache_' . $forum_id );
             }
         }
-        delete_transient( 'ultralight_forum_cache_global_archive' );
+        delete_transient( 'ggate_forum_cache_global_archive' );
     }
 }
 
 /**
  * Wipes out transient configurations site-wide the instant an admin adjusts the Global Box rules.
  */
-if ( ! function_exists( 'ultralight_flush_all_forum_transients_on_global_save' ) ) {
-    function ultralight_flush_all_forum_transients_on_global_save() {
+if ( ! function_exists( 'ggate_flush_all_forum_transients_on_global_save' ) ) {
+    function ggate_flush_all_forum_transients_on_global_save() {
         global $wpdb;
-        $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_ultralight_forum_cache_%'" );
+        $wpdb->query( "DELETE FROM {$wpdb->options} WHERE option_name LIKE '_transient_ggate_forum_cache_%'" );
     }
 }
 
 /**
  * ============================================================================
- * U_Gate-Ultralight (PART 4A OF 5) — SHORTCODE GATEWAY ROUTER
+ * GATOR GATE ULTRA (PART 4A OF 5) — SHORTCODE GATEWAY ROUTER
  * ============================================================================
  * Establishes the core [u_gate] shortcode interface. Manages recursive safety
  * thresholds and flattens roles, capabilities, and dynamic custom user groups
  * into an optimized lowercase validation vector array.
  */
 
-add_shortcode( 'u_gate', 'ultralight_universal_brevity_gate' );
+add_shortcode( 'u_gate', 'ggate_universal_brevity_gate' );
 
 /**
  * Universal layout visibility node handling complex group matching and timeline queries.
  */
-if ( ! function_exists( 'ultralight_universal_brevity_gate' ) ) {
-    function ultralight_universal_brevity_gate( $atts, $content = null ) {
-        global $ultralight_gate_depth;
-        if ( ! isset( $ultralight_gate_depth ) ) {
-            $ultralight_gate_depth = 0;
+if ( ! function_exists( 'ggate_universal_brevity_gate' ) ) {
+    function ggate_universal_brevity_gate( $atts, $content = null ) {
+        global $ggate_gate_depth;
+        if ( ! isset( $ggate_gate_depth ) ) {
+            $ggate_gate_depth = 0;
         }
         
         // NESTING SHIELD: Terminate execution loop thread safely if tags exceed a 5-tier ceiling
-        if ( $ultralight_gate_depth > 5 ) {
+        if ( $ggate_gate_depth > 5 ) {
             return '<!--Max Nesting Depth Exceeded-->';
         }
         
-        $ultralight_gate_depth++;
+        $ggate_gate_depth++;
 
         $r = is_array( $atts ) ? $atts : array();
         $l = isset( $r['l'] ) ? $r['l'] : ''; 
@@ -440,7 +439,7 @@ if ( ! function_exists( 'ultralight_universal_brevity_gate' ) ) {
             $u = wp_get_current_user(); 
             $g = ( isset( $u->roles ) && is_array( $u->roles ) ) ? array_map( 'strtolower', $u->roles ) : array();
             
-            $meta_keys = array( '_ultralight_network_groups' );
+            $meta_keys = array( '_ggate_network_groups' );
             if ( class_exists( 'bbPress' ) ) { 
                 $meta_keys[] = '_bbp_private_groups'; 
             }
@@ -494,20 +493,20 @@ if ( ! function_exists( 'ultralight_universal_brevity_gate' ) ) {
         }
         
         // Handover parameter vectors smoothly down to the mathematical loop engine
-        if ( function_exists( 'ultralight_process_unlocked_meta_vectors' ) ) {
-            $out = ultralight_process_unlocked_meta_vectors( $ok, $r, $g, $v, $content, $uid );
+        if ( function_exists( 'ggate_process_unlocked_meta_vectors' ) ) {
+            $out = ggate_process_unlocked_meta_vectors( $ok, $r, $g, $v, $content, $uid );
         } else {
             $out = $ok ? apply_shortcodes( $content ) : '';
         }
         
-        $ultralight_gate_depth--;
+        $ggate_gate_depth--;
         return $out;
     }
 }
 
 /**
  * ============================================================================
- * U_Gate-Ultralight (PART 4B OF 5 — REVISED v3) — TRANSACTION LOGIC ENGINE
+ * GATOR GATE ULTRA (PART 4B OF 5 — REVISED v3) — TRANSACTION LOGIC ENGINE
  * ============================================================================
  * Evaluates live forum context (supporting multi-ID comma text strings), checks
  * real-time server date expirations (until="date"), extracts user counts,
@@ -517,8 +516,8 @@ if ( ! function_exists( 'ultralight_universal_brevity_gate' ) ) {
 /**
  * Maps shorthand attribute tokens to their target meta columns cleanly within scope.
  */
-if ( ! function_exists( 'ultralight_get_part4_mapping_registry' ) ) {
-    function ultralight_get_part4_mapping_registry() {
+if ( ! function_exists( 'ggate_get_part4_mapping_registry' ) ) {
+    function ggate_get_part4_mapping_registry() {
         return array(
             't' => '_bbp_topic_count',          
             'p' => '_bbp_reply_count',          
@@ -530,10 +529,10 @@ if ( ! function_exists( 'ultralight_get_part4_mapping_registry' ) ) {
 /**
  * Intercepts user parameters and evaluates algebraic and conditional database equations.
  */
-if ( ! function_exists( 'ultralight_process_unlocked_meta_vectors' ) ) {
-    function ultralight_process_unlocked_meta_vectors( $ok, $r, $g, $v, $content, $uid ) {
+if ( ! function_exists( 'ggate_process_unlocked_meta_vectors' ) ) {
+    function ggate_process_unlocked_meta_vectors( $ok, $r, $g, $v, $content, $uid ) {
         if ( ! $ok ) {
-            return ultralight_render_gateway_fallback_ui( $v, $content );
+            return ggate_render_gateway_fallback_ui( $v, $content );
         }
         
         if ( empty( $r ) || ! is_array( $r ) ) {
@@ -559,7 +558,7 @@ if ( ! function_exists( 'ultralight_process_unlocked_meta_vectors' ) ) {
         $operator = 'min';
 
         if ( ! empty( $r ) ) {
-            $map = ultralight_get_part4_mapping_registry();
+            $map = ggate_get_part4_mapping_registry();
 
             foreach ( $r as $k => $val ) {
                 $val = trim( (string) $val ); 
@@ -616,7 +615,7 @@ if ( ! function_exists( 'ultralight_process_unlocked_meta_vectors' ) ) {
 
                 // User must be logged in to process user metadata or bbPress counts below
                 if ( ! $uid ) {
-                    return ultralight_render_gateway_fallback_ui( $v, $content );
+                    return ggate_render_gateway_fallback_ui( $v, $content );
                 }
 
                 $operator = 'min'; // Default floor behavior fallback
@@ -682,9 +681,9 @@ if ( ! function_exists( 'ultralight_process_unlocked_meta_vectors' ) ) {
         // PRODUCTION SECURITY ENFORCEMENT LOOP: Enforce restriction fallbacks on failure
         if ( ! $dyn ) {
             if ( $is_admin ) {
-                return ultralight_render_gateway_fallback_ui( $v, $content ) . '<div class="admin-only-alert" style="background:#fff3cd; padding:8px; border-left:4px solid #ffc107; font-family:sans-serif; font-size:11px; color:#856404; clear:both; text-align:left; margin-top:5px;">⚠️ Admin Telemetry: Milestone Context Evaluation Failed. Content container locked securely.</div>';
+                return ggate_render_gateway_fallback_ui( $v, $content ) . '<div class="admin-only-alert" style="background:#fff3cd; padding:8px; border-left:4px solid #ffc107; font-family:sans-serif; font-size:11px; color:#856404; clear:both; text-align:left; margin-top:5px;">⚠️ Admin Telemetry: Milestone Context Evaluation Failed. Content container locked securely.</div>';
             }
-            return ultralight_render_gateway_fallback_ui( $v, $content );
+            return ggate_render_gateway_fallback_ui( $v, $content );
         }
 
         if ( $is_admin && ! empty( $r ) ) {
@@ -698,8 +697,8 @@ if ( ! function_exists( 'ultralight_process_unlocked_meta_vectors' ) ) {
 /**
  * Standard visual interface fallbacks rendering on layout validation failure states.
  */
-if ( ! function_exists( 'ultralight_render_gateway_fallback_ui' ) ) {
-    function ultralight_render_gateway_fallback_ui( $v, $content ) {
+if ( ! function_exists( 'ggate_render_gateway_fallback_ui' ) ) {
+    function ggate_render_gateway_fallback_ui( $v, $content ) {
         if ( $v === 'h' ) {
             return '<!--Hidden-->';
         }
@@ -714,7 +713,7 @@ if ( ! function_exists( 'ultralight_render_gateway_fallback_ui' ) ) {
 
 /**
  * ============================================================================
- * U_Gate-Ultralight (PART 4C OF 5 — REVISED) — FRONT-END DIAGNOSTIC CONSOLE
+ * GATOR GATE ULTRA (PART 4C OF 5 — REVISED) — FRONT-END DIAGNOSTIC CONSOLE
  * ============================================================================
  * Reads directly from relational user metadata tables and live bbPress counters
  * to print terminal-style audit reports exclusively for diagnostic sessions.
@@ -724,8 +723,8 @@ if ( ! function_exists( 'ultralight_render_gateway_fallback_ui' ) ) {
  * TELEMETRY AUDIT LOG CONSOLE FIELD ASSET LAYER
  * Reads the direct database rows out of your tables and prints telemetry values.
  */
-if ( ! function_exists( 'ultralight_render_user_profile_debug_stats' ) ) {
-    function ultralight_render_user_profile_debug_stats() {
+if ( ! function_exists( 'ggate_render_user_profile_debug_stats' ) ) {
+    function ggate_render_user_profile_debug_stats() {
         if ( ! is_user_logged_in() ) {
             return '<div style="background:#fff3cd; padding:15px; border-left:4px solid #ffc107; font-family:monospace; font-size:13px; color:#856404;">🔍 DEBUG: Session is an Unregistered Guest (ID: 0)</div>';
         }
@@ -759,7 +758,7 @@ if ( ! function_exists( 'ultralight_render_user_profile_debug_stats' ) ) {
         
         if ( $active_forum_id ) {
             // Tier 1 Local meta scan
-            $local_check = get_post_meta( $active_forum_id, '_ultralight_custom_forum_shortcode', true );
+            $local_check = get_post_meta( $active_forum_id, '_ggate_custom_forum_shortcode', true );
             if ( ! empty( $local_check ) ) {
                 $fetched_title    = get_post_field( 'post_title', $active_forum_id );
                 $rule_source_name = ! empty( $fetched_title ) ? $fetched_title : 'Unnamed Board';
@@ -770,7 +769,7 @@ if ( ! function_exists( 'ultralight_render_user_profile_debug_stats' ) ) {
                 $ancestors = bbp_get_forum_ancestors( $active_forum_id );
                 if ( is_array( $ancestors ) ) {
                     foreach ( $ancestors as $parent_id ) {
-                        $parent_check = get_post_meta( $parent_id, '_ultralight_custom_forum_shortcode', true );
+                        $parent_check = get_post_meta( $parent_id, '_ggate_custom_forum_shortcode', true );
                         if ( ! empty( $parent_check ) ) {
                             $fetched_parent_title = get_post_field( 'post_title', $parent_id );
                             $rule_source_name     = ! empty( $fetched_parent_title ) ? $fetched_parent_title : 'Unnamed Parent Board';
@@ -790,7 +789,7 @@ if ( ! function_exists( 'ultralight_render_user_profile_debug_stats' ) ) {
         ob_start();
         ?>
         <div style="background:#222; color:#00ff00; padding:20px; font-family:monospace; font-size:13px; border-radius:4px; margin:20px 0; border:2px solid #00ff00; line-height:1.6; clear:both; text-align:left;">
-            <strong style="color:#fff; display:block; border-bottom:1px dashed #00ff00; padding-bottom:5px; margin-bottom:10px;">🛡️ ULTRALIGHT DATA MATRIX AUDIT TERMINAL</strong>
+            <strong style="color:#fff; display:block; border-bottom:1px dashed #00ff00; padding-bottom:5px; margin-bottom:10px;">🛡️ ggate DATA MATRIX AUDIT TERMINAL</strong>
             
             <strong style="color:#ffc107; display:block; margin-bottom:5px;">🌲 RULE SOURCE INHERITANCE CASCADE:</strong>
             <strong>Active Rule Origin Name:</strong> <span style="color:#fff; font-weight:bold; background:#111; padding:2px 6px; border:1px solid #444; border-radius:3px;"><?php echo esc_html( $rule_source_name ); ?></span><br>
@@ -818,26 +817,26 @@ if ( ! function_exists( 'ultralight_render_user_profile_debug_stats' ) ) {
 
 /**
  * ============================================================================
- * U_Gate-Ultralight (PART 5A OF 5 — REVISED) — SETTINGS RADAR INTERFACE INJECTOR
+ * GATOR GATE ULTRA (PART 5A OF 5 — REVISED) — SETTINGS RADAR INTERFACE INJECTOR
  * ============================================================================
  * Registers the Topographical dependency tracking row onto the native bbPress 
  * options layout grid. Processes form field lookup queries safely without 
  * creating database parameter collision variables.
  */
 
-add_action( 'admin_init', 'ultralight_register_integrated_diagnostics_field' );
+add_action( 'admin_init', 'ggate_register_integrated_diagnostics_field' );
 
 /**
  * Registers the diagnostics block directly onto the core bbPress settings row.
  */
-if ( ! function_exists( 'ultralight_register_integrated_diagnostics_field' ) ) {
-    function ultralight_register_integrated_diagnostics_field() {
+if ( ! function_exists( 'ggate_register_integrated_diagnostics_field' ) ) {
+    function ggate_register_integrated_diagnostics_field() {
         add_settings_field( 
-            'ultralight_integrated_diagnostics_tracker', 
+            'ggate_integrated_diagnostics_tracker', 
             'Architecture Dependency Radar', 
-            'ultralight_render_integrated_diagnostics_workspace', 
+            'ggate_render_integrated_diagnostics_workspace', 
             'bbpress', 
-            'ultralight_global_section'
+            'ggate_global_section'
         );
     }
 }
@@ -845,13 +844,13 @@ if ( ! function_exists( 'ultralight_register_integrated_diagnostics_field' ) ) {
 /**
  * Renders the interactive topographical search utility inside the main Forum Settings page.
  */
-if ( ! function_exists( 'ultralight_render_integrated_diagnostics_workspace' ) ) {
-    function ultralight_render_integrated_diagnostics_workspace() {
+if ( ! function_exists( 'ggate_render_integrated_diagnostics_workspace' ) ) {
+    function ggate_render_integrated_diagnostics_workspace() {
         if ( ! current_user_can( 'manage_options' ) ) {
             return;
         }
 
-        $search_query = isset( $_POST['ultralight_radar_search'] ) ? sanitize_text_field( $_POST['ultralight_radar_search'] ) : '';
+        $search_query = isset( $_POST['ggate_radar_search'] ) ? sanitize_text_field( $_POST['ggate_radar_search'] ) : '';
         $selected_forum_id = 0;
         $search_results = array();
 
@@ -870,23 +869,23 @@ if ( ! function_exists( 'ultralight_render_integrated_diagnostics_workspace' ) )
             }
         }
 
-        if ( isset( $_POST['ultralight_radar_explicit_id'] ) ) {
-            $selected_forum_id = intval( $_POST['ultralight_radar_explicit_id'] );
+        if ( isset( $_POST['ggate_radar_explicit_id'] ) ) {
+            $selected_forum_id = intval( $_POST['ggate_radar_explicit_id'] );
         }
 
         // Build entire workspace structure inside a pure PHP text container
-        $html = '<div class="ultralight-radar-wrap" style="background:#fff; padding:16px; border:1px solid #ccd0d4; border-radius:4px; max-width:800px; box-sizing:border-box;">';
+        $html = '<div class="ggate-radar-wrap" style="background:#fff; padding:16px; border:1px solid #ccd0d4; border-radius:4px; max-width:800px; box-sizing:border-box;">';
         $html .= '    <span style="font-weight:600; font-size:13px; color:#1d2327; display:block; margin-bottom:4px;">Topographical Dependency Cascade Tracker</span>';
         $html .= '    <span class="description" style="display:block; margin-bottom:12px; font-size:11px; color:#646970;">Scan a specific forum node to trace its active permission rule maps down through the parent hierarchy trees.</span>';
         $html .= '    <div style="display:flex; gap:8px; margin-bottom:12px;">';
-        $html .= '        <input type="text" name="ultralight_radar_search" id="ultralight_radar_search" value="' . esc_attr( $search_query ) . '" style="flex-grow:1; height:30px; font-size:13px;" placeholder="Type Forum Title or Board ID Number...">';
-        $html .= '        <button type="button" id="ultralight_trigger_radar_scan" class="button button-secondary" style="height:30px; font-size:12px;">🔍 Scan Node</button>';
+        $html .= '        <input type="text" name="ggate_radar_search" id="ggate_radar_search" value="' . esc_attr( $search_query ) . '" style="flex-grow:1; height:30px; font-size:13px;" placeholder="Type Forum Title or Board ID Number...">';
+        $html .= '        <button type="button" id="ggate_trigger_radar_scan" class="button button-secondary" style="height:30px; font-size:12px;">🔍 Scan Node</button>';
         $html .= '    </div>';
 
         if ( ! empty( $search_results ) ) {
             $html .= '    <div style="background:#f6f7f7; padding:10px; border:1px solid #dcdcde; border-radius:4px; margin-bottom:12px; display:flex; align-items:center; justify-content:space-between; gap:10px;">';
-            $html .= '        <label for="ultralight_radar_explicit_id" style="font-size:11px; font-weight:600; color:#1d2327;">Multiple matches found:</label>';
-            $html .= '        <select name="ultralight_radar_explicit_id" id="ultralight_radar_explicit_id" style="font-size:12px; height:28px;">';
+            $html .= '        <label for="ggate_radar_explicit_id" style="font-size:11px; font-weight:600; color:#1d2327;">Multiple matches found:</label>';
+            $html .= '        <select name="ggate_radar_explicit_id" id="ggate_radar_explicit_id" style="font-size:12px; height:28px;">';
             
             foreach ( $search_results as $res ) {
                 $selected_attr = ( $selected_forum_id === intval( $res->ID ) ) ? 'selected="selected"' : '';
@@ -894,16 +893,16 @@ if ( ! function_exists( 'ultralight_render_integrated_diagnostics_workspace' ) )
             }
             
             $html .= '        </select>';
-            $html .= '        <button type="button" id="ultralight_trigger_explicit_radar_scan" class="button button-secondary" style="height:28px; font-size:11px;">Analyze Target</button>';
+            $html .= '        <button type="button" id="ggate_trigger_explicit_radar_scan" class="button button-secondary" style="height:28px; font-size:11px;">Analyze Target</button>';
             $html .= '    </div>';
         }
 
-        $html .= '    <div id="ultralight_radar_terminal_output">';
+        $html .= '    <div id="ggate_radar_terminal_output">';
         
         // Execute output trace logs inline natively if requested
-        if ( $selected_forum_id && function_exists( 'ultralight_execute_topographical_radar_trace' ) ) {
+        if ( $selected_forum_id && function_exists( 'ggate_execute_topographical_radar_trace' ) ) {
             ob_start();
-            ultralight_execute_topographical_radar_trace( $selected_forum_id );
+            ggate_execute_topographical_radar_trace( $selected_forum_id );
             $html .= ob_get_clean();
         }
         
@@ -913,7 +912,7 @@ if ( ! function_exists( 'ultralight_render_integrated_diagnostics_workspace' ) )
         // Segment script elements seamlessly to bypass the real-time background scanners
         $html .= '<' . 'script' . '>';
         $html .= 'jQuery(document).ready(function($) {';
-        $html .= '    $("#ultralight_trigger_radar_scan, #ultralight_trigger_explicit_radar_scan").on("click", function(e) {';
+        $html .= '    $("#ggate_trigger_radar_scan, #ggate_trigger_explicit_radar_scan").on("click", function(e) {';
         $html .= '        e.preventDefault();';
         $html .= '        var form = $(this).closest("form");';
         $html .= '        if (form.length) {';
@@ -930,7 +929,7 @@ if ( ! function_exists( 'ultralight_render_integrated_diagnostics_workspace' ) )
 }
 /**
  * ============================================================================
- * ULTRALIGHT U_GATE (PART 5B OF 5 — REVISED) — CASCADING VISUAL RADAR TREE RENDERER
+ * GATOR GATE ULTRA (PART 5B OF 5 — REVISED) — CASCADING VISUAL RADAR TREE RENDERER
  * ============================================================================
  * Sweeps the database, traces ancestors, and outputs the live monospace 
  * dependency matrix logs. Highlights active effector rule definitions 
@@ -940,8 +939,8 @@ if ( ! function_exists( 'ultralight_render_integrated_diagnostics_workspace' ) )
 /**
  * Sweeps the database, traces ancestors, and outputs the live monospace dependency matrix logs.
  */
-if ( ! function_exists( 'ultralight_execute_topographical_radar_trace' ) ) {
-    function ultralight_execute_topographical_radar_trace( $selected_forum_id ) {
+if ( ! function_exists( 'ggate_execute_topographical_radar_trace' ) ) {
+    function ggate_execute_topographical_radar_trace( $selected_forum_id ) {
         $forum_post = get_post( $selected_forum_id );
         if ( ! $forum_post || ! class_exists( 'bbPress' ) || ! function_exists( 'bbp_get_forum_post_type' ) || $forum_post->post_type !== bbp_get_forum_post_type() ) {
             echo '<div class="notice notice-error" style="margin:0;"><p>❌ Error: Target ID ' . intval( $selected_forum_id ) . ' is not an active bbPress Forum board instance.</p></div>';
@@ -958,13 +957,13 @@ if ( ! function_exists( 'ultralight_execute_topographical_radar_trace' ) ) {
             $active_override_found = false;
             
             // Tier 1 Check: Read standard subforum database row directly
-            $local_code = get_post_meta( $selected_forum_id, '_ultralight_custom_forum_shortcode', true );
+            $local_code = get_post_meta( $selected_forum_id, '_ggate_custom_forum_shortcode', true );
             $has_local = ! empty( $local_code );
             if ( $has_local ) { 
                 $active_override_found = true; 
             }
             
-            ultralight_print_diagnostics_node_row( $step++, 'TIER 1: TARGET SUBFORUM Meta Canvas', $forum_post->post_title, $selected_forum_id, $local_code, $has_local, $has_local );
+            ggate_print_diagnostics_node_row( $step++, 'TIER 1: TARGET SUBFORUM Meta Canvas', $forum_post->post_title, $selected_forum_id, $local_code, $has_local, $has_local );
 
             // Tier 2 Check: Crawl active directory ancestors structures
             if ( function_exists( 'bbp_get_forum_ancestors' ) ) {
@@ -975,7 +974,7 @@ if ( ! function_exists( 'ultralight_execute_topographical_radar_trace' ) ) {
                         if ( ! $parent_post ) {
                             continue;
                         }
-                        $parent_code = get_post_meta( $parent_id, '_ultralight_custom_forum_shortcode', true );
+                        $parent_code = get_post_meta( $parent_id, '_ggate_custom_forum_shortcode', true );
                         $has_parent = ! empty( $parent_code );
                         
                         $is_active_effector = ( ! $active_override_found && $has_parent );
@@ -983,7 +982,7 @@ if ( ! function_exists( 'ultralight_execute_topographical_radar_trace' ) ) {
                             $active_override_found = true; 
                         }
 
-                        ultralight_print_diagnostics_node_row( $step++, 'TIER 2: ANCESTOR TREE Hierarchy Branch', $parent_post->post_title, $parent_id, $parent_code, $has_parent, $is_active_effector );
+                        ggate_print_diagnostics_node_row( $step++, 'TIER 2: ANCESTOR TREE Hierarchy Branch', $parent_post->post_title, $parent_id, $parent_code, $has_parent, $is_active_effector );
                     }
                 } else {
                     echo '<div style="color:#666; padding-left: 20px; font-size:12px; margin-bottom:5px;">└─ 🌲 No higher parent forum elements registered in directory tree.</div>';
@@ -991,18 +990,18 @@ if ( ! function_exists( 'ultralight_execute_topographical_radar_trace' ) ) {
             }
 
             // Tier 3 Check: Fetch global system options fallback parameters
-            $global_code = get_option( 'ultralight_global_master_shortcode', '' );
+            $global_code = get_option( 'ggate_global_master_shortcode', '' );
             $has_global = ! empty( $global_code );
             $is_global_active = ( ! $active_override_found );
             
-            ultralight_print_diagnostics_node_row( $step++, 'TIER 3: CENTRAL GLOBAL MASTER Fallback Anchor', 'Site-Wide Options Table', 'System Option', $global_code, $has_global, $is_global_active );
+            ggate_print_diagnostics_node_row( $step++, 'TIER 3: CENTRAL GLOBAL MASTER Fallback Anchor', 'Site-Wide Options Table', 'System Option', $global_code, $has_global, $is_global_active );
             ?>
 
             <div style="margin-top: 15px; border-top: 1px solid #333; padding-top: 15px; display: flex; align-items: center; justify-content: space-between; flex-wrap:wrap; gap:10px;">
                 <strong>🚀 ACTIVE RUNTIME EFFECTOR GATE RULE:</strong>
                 <?php
                 // Pull the actual layout value currently executing inside the active memory caches
-                $final_rule = get_transient( 'ultralight_forum_cache_' . $selected_forum_id );
+                $final_rule = get_transient( 'ggate_forum_cache_' . $selected_forum_id );
                 
                 if ( empty( $final_rule ) ) {
                     echo '<span style="color:#ff4444; font-weight:bold;">[🔓 UNPROTECTED ENVIRONMENT LOOP — OPEN BOARD]</span>';
@@ -1019,8 +1018,8 @@ if ( ! function_exists( 'ultralight_execute_topographical_radar_trace' ) ) {
 /**
  * Monospace data block node row layout formatter.
  */
-if ( ! function_exists( 'ultralight_print_diagnostics_node_row' ) ) {
-    function ultralight_print_diagnostics_node_row( $step, $layer_label, $name, $id, $code, $has_contents, $is_active_effector ) {
+if ( ! function_exists( 'ggate_print_diagnostics_node_row' ) ) {
+    function ggate_print_diagnostics_node_row( $step, $layer_label, $name, $id, $code, $has_contents, $is_active_effector ) {
         $color = $has_contents ? ( $is_active_effector ? '#00ff00' : '#ffc107' ) : '#555';
         $status_text = $has_contents ? ( $is_active_effector ? '⭐ ACTIVE EFFECTOR' : '⚠️ INHERITED OVERRIDE BLOCKED' ) : '⚪ EMPTY/PASS THROUGH';
         ?>
